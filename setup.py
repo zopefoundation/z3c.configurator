@@ -16,10 +16,26 @@ $Id$
 """
 
 import os
+import sys
 from setuptools import setup, find_packages
 
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
+
+def test_suite():
+    # use the zope.testrunner machinery to find all the
+    # test suites we've put under ourselves
+    from zope.testrunner.options import get_options
+    from zope.testrunner.find import find_suites
+    from unittest import TestSuite
+    here = os.path.abspath(os.path.dirname(sys.argv[0]))
+    args = sys.argv[:]
+    src = os.path.join(here, 'src')
+    defaults = ['--test-path', src]
+    options = get_options(args, defaults)
+    suites = list(find_suites(options))
+    return TestSuite(suites)
+
 
 setup(
     name = 'z3c.configurator',
@@ -55,12 +71,14 @@ setup(
     namespace_packages = ['z3c'],
     extras_require = dict(
         test = [
+            'zope.testing',
+            ],
+        ftest = [
             'zope.annotation',
             'zope.dublincore',
             'zope.formlib',
             'zope.securitypolicy',
             'zope.testbrowser',
-            'zope.testing',
             'zope.app.pagetemplate',
             'zope.app.testing',
             'zope.app.zcmlfiles',
@@ -70,6 +88,7 @@ setup(
             'zope.formlib',
             ],
         ),
+    test_suite='__main__.test_suite',
     install_requires = [
         'setuptools',
         'zope.component',
