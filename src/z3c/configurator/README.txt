@@ -18,9 +18,9 @@ interface and a component on which the configuration can act upon:
   >>> class ISomething(zope.interface.Interface):
   ...     """Some interesting interface."""
 
-  >>> class Something(object):
+  >>> @zope.interface.implementer(ISomething)
+  ... class Something(object):
   ...     """Implementation of something."""
-  ...     zope.interface.implements(ISomething)
 
   >>> something = Something()
 
@@ -155,8 +155,8 @@ Let us create a new something:
 If we now configure it without names we get both attributes set.
 
   >>> configurator.configure(something, {'foo': u'my value', 'bar': u'asdf'})
-  >>> something.__dict__
-  {'foo': u'Text: my value', 'bar': u'asdf'}
+  >>> sorted(something.__dict__.items())
+  [('bar', 'asdf'), ('foo', 'Text: my value')]
 
 Now let us just configure the plugin 'add bar'.
 
@@ -217,19 +217,20 @@ errors. Let's define a new plugin free object:
   >>> class IFoo(zope.interface.Interface):
   ...     """Just a foo interface."""
 
-  >>> class Foo(object):
+  >>> @zope.interface.implementer(IFoo)
+  ... class Foo(object):
   ...     """Implementation of foo."""
-  ...     zope.interface.implements(IFoo)
 
 Let's define another plugin named `first` which depends on a plugin named 
 `second`.
 
+  >>> log = []
   >>> class FirstPlugin(configurator.ConfigurationPluginBase):
   ...     zope.component.adapts(IFoo)
   ...     dependencies = ('second',)
   ...
   ...     def __call__(self, data):
-  ...         print 'FirstPlugin called'
+  ...         log.append('FirstPlugin called')
 
   >>> zope.component.provideAdapter(FirstPlugin, name='first')
 
@@ -240,11 +241,12 @@ And define a plugin named `second` which depends on `first`:
   ...     dependencies = ('first',)
   ...
   ...     def __call__(self, data):
-  ...         print 'SecondPlugin called'
+  ...         log.append('SecondPlugin called')
 
   >>> zope.component.provideAdapter(SecondPlugin, name='second')
 
   >>> foo = Foo()
   >>> configurator.configure(foo, {})
+  >>> for msg in sorted(log): print(msg)
   FirstPlugin called
   SecondPlugin called

@@ -83,8 +83,8 @@ def configure(component, data, names=[], useNameSpaces=False):
         plugin = factory(component)
         plugin(d)
 
+@zope.interface.implementer(interfaces.IConfigurationPlugin)
 class ConfigurationPluginBase(object):
-    zope.interface.implements(interfaces.IConfigurationPlugin)
 
     def __init__(self, context):
         self.context = context
@@ -92,8 +92,8 @@ class ConfigurationPluginBase(object):
     def __call__(self, data):
         raise NotImplementedError
 
+@zope.interface.implementer(interfaces.ISchemaConfigurationPlugin)
 class SchemaConfigurationPluginBase(object):
-    zope.interface.implements(interfaces.ISchemaConfigurationPlugin)
     schema = zope.interface.Interface
 
     def __init__(self, context):
