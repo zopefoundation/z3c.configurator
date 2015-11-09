@@ -39,7 +39,7 @@ def test_suite():
 
 setup(
     name = 'z3c.configurator',
-    version='2.0.0',
+    version='2.0.1.dev0',
     author = "Zope Community",
     author_email = "zope-dev@zope.org",
     description = "Dynamic configuration",
