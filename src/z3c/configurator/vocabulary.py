@@ -11,19 +11,15 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Vocabularies
-
-$Id$
-"""
-__docformat__ = "reStructuredText"
+"""Vocabularies."""
 from zope import component
 from zope.schema import vocabulary
 import interfaces
 
+
 def pluginNamesVocabulary(context):
     """a vocabulary that returns all names of registered configuration
     plugins"""
-    terms = []
     plugins = dict(component.getAdapters(
         (context,), interfaces.IConfigurationPlugin))
     return vocabulary.SimpleVocabulary.fromValues(sorted(plugins.keys()))

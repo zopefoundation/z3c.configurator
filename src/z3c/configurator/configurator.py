@@ -22,10 +22,11 @@ import zope.schema
 
 from z3c.configurator import interfaces
 
+
 def getAdapterFactories(component, specific=True):
     """Get adapter registrations where @iface is provided and prefer
     the specific registrations."""
-    iface =  interfaces.IConfigurationPlugin
+    iface = interfaces.IConfigurationPlugin
     gsm = zope.component.getGlobalSiteManager()
     res = {}
     for reg in gsm.registeredAdapters():
@@ -39,8 +40,8 @@ def getAdapterFactories(component, specific=True):
         res[reg.name] = reg.factory
     return res
 
-def requiredPlugins(component, names=[]):
 
+def requiredPlugins(component, names=[]):
     """returns a list of tuples of (name, pluginfactory) in the right
     order to be executed"""
 
@@ -61,7 +62,7 @@ def requiredPlugins(component, names=[]):
         seen.add(name)
         deps = getattr(plugins[name], 'dependencies', ())
         for dep in deps:
-            if not dep in res:
+            if dep not in res:
                 _add(dep, res)
         if name not in res:
             res.append(name)
@@ -70,6 +71,7 @@ def requiredPlugins(component, names=[]):
     for name in names:
         _add(name, res)
     return [(name, plugins[name]) for name in res]
+
 
 def configure(component, data, names=[], useNameSpaces=False):
 
@@ -83,6 +85,7 @@ def configure(component, data, names=[], useNameSpaces=False):
         plugin = factory(component)
         plugin(d)
 
+
 @zope.interface.implementer(interfaces.IConfigurationPlugin)
 class ConfigurationPluginBase(object):
 
@@ -91,6 +94,7 @@ class ConfigurationPluginBase(object):
 
     def __call__(self, data):
         raise NotImplementedError
+
 
 @zope.interface.implementer(interfaces.ISchemaConfigurationPlugin)
 class SchemaConfigurationPluginBase(object):
