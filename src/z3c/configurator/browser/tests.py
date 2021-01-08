@@ -26,12 +26,13 @@ def test_suite():
         suites = (
             functional.FunctionalDocFileSuite(
                 'README.txt', setUp=setUp, tearDown=tearDown,
-                ),
-            )
+            ),
+        )
         for s in suites:
-            s.layer=TestLayer
+            s.layer = TestLayer
             suite.addTest(s)
     return suite
+
 
 if __name__ == '__main__':
     unittest.main(defaultTest='test_suite')

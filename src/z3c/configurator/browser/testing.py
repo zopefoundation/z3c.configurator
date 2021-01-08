@@ -7,9 +7,11 @@ from zope import schema
 from zope.dublincore.interfaces import IZopeDublinCore
 from zope.annotation.interfaces import IAttributeAnnotatable
 
+
 class ISingleArg(interface.Interface):
 
     arg = schema.TextLine(title=u'Some Argument')
+
 
 class SetTitle(configurator.SchemaConfigurationPluginBase):
     """makes an object implement IFoo"""
@@ -19,6 +21,7 @@ class SetTitle(configurator.SchemaConfigurationPluginBase):
     def __call__(self, data):
         dc = IZopeDublinCore(self.context)
         dc.title = data.get('arg')
+
 
 class SetDescription(configurator.SchemaConfigurationPluginBase):
 

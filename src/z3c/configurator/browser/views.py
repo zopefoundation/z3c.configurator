@@ -18,7 +18,7 @@ class SelectPlugins(form.PageForm):
         schema.Choice(__name__=u'pluginName',
                       title=_(u'Plugin Name'),
                       vocabulary="Configurator Plugin Names")
-        )
+    )
 
     @form.action(label=_(u'Apply Configuration'))
     def selectPlugins(self, action, data):
@@ -31,11 +31,11 @@ class IGenerateSchema(interface.Interface):
     """Schema for the minimal generator parameters"""
 
     seed = schema.TextLine(
-            title = _(u'Seed'),
-            description =  _(u'A seed for the random generator'),
-            default = u'sample',
-            required=False,
-            )
+        title=_(u'Seed'),
+        description=_(u'A seed for the random generator'),
+        default=u'sample',
+        required=False,
+    )
 
 
 class ConfigureForm(form.PageForm):
@@ -49,17 +49,17 @@ class ConfigureForm(form.PageForm):
         schema.List(__name__=u'pluginNames',
                     title=u'Plugin Names',
                     value_type=schema.Choice(
-        __name__=u'pluginName',
-        title=_(u'Plugin Name'),
-        vocabulary="Configurator Plugin Names")
-        ))
+                        __name__=u'pluginName',
+                        title=_(u'Plugin Name'),
+                        vocabulary="Configurator Plugin Names")
+                    ))
 
     workDone = False
 
     @property
     def _pluginNames(self):
         names = self.request.form.get(self.prefix + '.pluginNames')
-        if names and not type(names) is type([]):
+        if names and not isinstance(names, list):
             return [names]
         return names
 
@@ -71,7 +71,7 @@ class ConfigureForm(form.PageForm):
             for name, factory in plugins:
                 plugin = factory(self.context)
                 if not interfaces.ISchemaConfigurationPlugin.providedBy(
-                    plugin):
+                        plugin):
                     continue
                 subform = PluginSchemaForm(context=self.context,
                                            request=self.request,
@@ -99,9 +99,7 @@ class ConfigureForm(form.PageForm):
         for subform in self.subforms:
             subform.update()
             formData = {}
-            errors = form.getWidgetsData(subform.widgets,
-                                         subform.prefix,
-                                         formData)
+            form.getWidgetsData(subform.widgets, subform.prefix, formData)
             configuratorData[subform.prefix] = formData
 
         configurator.configure(self.context,
