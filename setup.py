@@ -62,6 +62,7 @@ setup(
     extras_require=dict(
         test=[
             'zope.testing',
+            'zope.testrunner',
         ],
         ftest=[
             'zope.annotation',
