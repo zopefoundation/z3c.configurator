@@ -12,9 +12,9 @@
 #
 ##############################################################################
 """Vocabularies."""
+import interfaces
 from zope import component
 from zope.schema import vocabulary
-import interfaces
 
 
 def pluginNamesVocabulary(context):

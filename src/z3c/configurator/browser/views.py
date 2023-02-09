@@ -1,13 +1,13 @@
+from zope import formlib
 from zope import interface
 from zope import schema
-
-from zope import formlib
-from zope.formlib import form
-from zope.browserpage import namedtemplate
 from zope.browserpage import ViewPageTemplateFile
+from zope.browserpage import namedtemplate
+from zope.formlib import form
+
+from z3c.configurator import configurator
 from z3c.configurator import interfaces
 from z3c.configurator.i18n import _
-from z3c.configurator import configurator
 
 
 class SelectPlugins(form.PageForm):
