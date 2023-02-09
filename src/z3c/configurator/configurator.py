@@ -87,7 +87,7 @@ def configure(component, data, names=[], useNameSpaces=False):
 
 
 @zope.interface.implementer(interfaces.IConfigurationPlugin)
-class ConfigurationPluginBase(object):
+class ConfigurationPluginBase:
 
     def __init__(self, context):
         self.context = context
@@ -97,7 +97,7 @@ class ConfigurationPluginBase(object):
 
 
 @zope.interface.implementer(interfaces.ISchemaConfigurationPlugin)
-class SchemaConfigurationPluginBase(object):
+class SchemaConfigurationPluginBase:
     schema = zope.interface.Interface
 
     def __init__(self, context):

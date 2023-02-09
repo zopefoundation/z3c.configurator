@@ -12,7 +12,7 @@ with-future-python = false
 with-macos = false
 
 [coverage]
-fail-under = 49
+fail-under = 88
 
 [flake8]
 additional-config = [
@@ -23,6 +23,9 @@ additional-config = [
 
 [tox]
 use-flake8 = true
+testenv-additional-extras = [
+    "ftest",
+    ]
 
 [manifest]
 additional-rules = [

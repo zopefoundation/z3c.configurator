@@ -11,7 +11,7 @@ from z3c.configurator import configurator
 
 class ISingleArg(interface.Interface):
 
-    arg = schema.TextLine(title=u'Some Argument')
+    arg = schema.TextLine(title='Some Argument')
 
 
 class SetTitle(configurator.SchemaConfigurationPluginBase):

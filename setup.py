@@ -25,7 +25,7 @@ setup(
     name='z3c.configurator',
     version='3.0.dev0',
     author="Zope Community",
-    author_email="zope-dev@zope.org",
+    author_email="zope-dev@zope.dev",
     description="Dynamic configuration",
     long_description=(
         read('README.txt')
@@ -60,6 +60,7 @@ setup(
     include_package_data=True,
     package_dir={'': 'src'},
     namespace_packages=['z3c'],
+    python_requires='>=3.7',
     extras_require=dict(
         test=[
             'zope.testing',
@@ -71,6 +72,7 @@ setup(
             'zope.formlib',
             'zope.securitypolicy',
             'zope.testbrowser',
+            'zope.app.authentication',
             'zope.app.pagetemplate',
             'zope.app.testing',
             'zope.app.zcmlfiles',

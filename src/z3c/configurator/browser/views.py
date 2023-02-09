@@ -15,12 +15,12 @@ class SelectPlugins(form.PageForm):
     """a form to choose plugins, to be applied"""
 
     form_fields = form.Fields(
-        schema.Choice(__name__=u'pluginName',
-                      title=_(u'Plugin Name'),
+        schema.Choice(__name__='pluginName',
+                      title=_('Plugin Name'),
                       vocabulary="Configurator Plugin Names")
     )
 
-    @form.action(label=_(u'Apply Configuration'))
+    @form.action(label=_('Apply Configuration'))
     def selectPlugins(self, action, data):
         pluginName = data.get('pluginName')
         configurator.configure(self.context, names=[pluginName])
@@ -31,9 +31,9 @@ class IGenerateSchema(interface.Interface):
     """Schema for the minimal generator parameters"""
 
     seed = schema.TextLine(
-        title=_(u'Seed'),
-        description=_(u'A seed for the random generator'),
-        default=u'sample',
+        title=_('Seed'),
+        description=_('A seed for the random generator'),
+        default='sample',
         required=False,
     )
 
@@ -46,11 +46,11 @@ class ConfigureForm(form.PageForm):
     subforms = []
 
     form_fields = form.Fields(
-        schema.List(__name__=u'pluginNames',
-                    title=u'Plugin Names',
+        schema.List(__name__='pluginNames',
+                    title='Plugin Names',
                     value_type=schema.Choice(
-                        __name__=u'pluginName',
-                        title=_(u'Plugin Name'),
+                        __name__='pluginName',
+                        title=_('Plugin Name'),
                         vocabulary="Configurator Plugin Names")
                     ))
 
@@ -79,7 +79,7 @@ class ConfigureForm(form.PageForm):
                                            prefix=name)
                 subform.form_fields = form.Fields(plugin.schema)
                 self.subforms.append(subform)
-        super(ConfigureForm, self).setUpWidgets(ignore_request=ignore_request)
+        super().setUpWidgets(ignore_request=ignore_request)
 
     @form.action(_("Update"))
     def handleUpdate(self, action, data):
@@ -106,12 +106,12 @@ class ConfigureForm(form.PageForm):
                                configuratorData,
                                names=self._pluginNames,
                                useNameSpaces=True)
-        self.status = u'Applied: %s' % u' '.join(self._pluginNames)
+        self.status = 'Applied: %s' % ' '.join(self._pluginNames)
 
 
+@interface.implementer(formlib.interfaces.ISubPageForm)
 class PluginSchemaForm(form.AddForm):
     """An editor for a single schema based plugin"""
-    interface.implements(formlib.interfaces.ISubPageForm)
     template = namedtemplate.NamedTemplate('default')
     actions = []
 
@@ -120,4 +120,4 @@ class PluginSchemaForm(form.AddForm):
         self.plugin = plugin
         self.schema = schema
         self.prefix = prefix
-        super(PluginSchemaForm, self).__init__(context, request)
+        super().__init__(context, request)
