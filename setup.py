@@ -23,7 +23,7 @@ def read(*rnames):
 
 setup(
     name='z3c.configurator',
-    version='3.0.dev0',
+    version='3.0',
     author="Zope Community",
     author_email="zope-dev@zope.dev",
     description="Dynamic configuration",
