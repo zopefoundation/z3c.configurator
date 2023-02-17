@@ -14,7 +14,8 @@
 """Vocabularies."""
 from zope import component
 from zope.schema import vocabulary
-import interfaces
+
+from z3c.configurator import interfaces
 
 
 def pluginNamesVocabulary(context):

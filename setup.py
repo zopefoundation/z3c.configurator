@@ -12,7 +12,9 @@
 #
 ##############################################################################
 import os
-from setuptools import setup, find_packages
+
+from setuptools import find_packages
+from setuptools import setup
 
 
 def read(*rnames):
@@ -21,9 +23,9 @@ def read(*rnames):
 
 setup(
     name='z3c.configurator',
-    version='2.1.0.dev0',
+    version='3.0.dev0',
     author="Zope Community",
-    author_email="zope-dev@zope.org",
+    author_email="zope-dev@zope.dev",
     description="Dynamic configuration",
     long_description=(
         read('README.txt')
@@ -42,23 +44,23 @@ setup(
         'Intended Audience :: Developers',
         'License :: OSI Approved :: Zope Public License',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
         'Natural Language :: English',
         'Operating System :: OS Independent',
         'Topic :: Internet :: WWW/HTTP',
-        'Framework :: Zope :: 3'],
+        'Framework :: Zope :: 3',
+    ],
     url='https://github.com/zopefoundation/z3c.configurator',
     packages=find_packages('src'),
     include_package_data=True,
     package_dir={'': 'src'},
     namespace_packages=['z3c'],
+    python_requires='>=3.7',
     extras_require=dict(
         test=[
             'zope.testing',
@@ -70,6 +72,7 @@ setup(
             'zope.formlib',
             'zope.securitypolicy',
             'zope.testbrowser',
+            'zope.app.authentication',
             'zope.app.pagetemplate',
             'zope.app.testing',
             'zope.app.zcmlfiles',

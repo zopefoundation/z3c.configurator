@@ -1,14 +1,19 @@
+import doctest
 import unittest
 
+import z3c.configurator.browser
+
+
 try:
-    from zope.app.testing import functional
+    from zope.app.wsgi import testlayer
     HAVE_FTEST = True
 except ImportError:
     HAVE_FTEST = False
 
 TestLayer = None
 if HAVE_FTEST:
-    functional.defineLayer('TestLayer', 'ftesting.zcml')
+    TestLayer = testlayer.BrowserLayer(
+        z3c.configurator.browser, 'ftesting.zcml')
 
 
 def setUp(test):
@@ -24,15 +29,12 @@ def test_suite():
     suite = unittest.TestSuite()
     if HAVE_FTEST:
         suites = (
-            functional.FunctionalDocFileSuite(
+            doctest.DocFileSuite(
                 'README.txt', setUp=setUp, tearDown=tearDown,
+                globs={'layer': TestLayer}
             ),
         )
         for s in suites:
             s.layer = TestLayer
             suite.addTest(s)
     return suite
-
-
-if __name__ == '__main__':
-    unittest.main(defaultTest='test_suite')

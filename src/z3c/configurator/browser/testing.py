@@ -1,16 +1,17 @@
 """Some test classes
 """
-from z3c.configurator import configurator
-from zope import interface
 from zope import component
+from zope import interface
 from zope import schema
-from zope.dublincore.interfaces import IZopeDublinCore
 from zope.annotation.interfaces import IAttributeAnnotatable
+from zope.dublincore.interfaces import IZopeDublinCore
+
+from z3c.configurator import configurator
 
 
 class ISingleArg(interface.Interface):
 
-    arg = schema.TextLine(title=u'Some Argument')
+    arg = schema.TextLine(title='Some Argument')
 
 
 class SetTitle(configurator.SchemaConfigurationPluginBase):

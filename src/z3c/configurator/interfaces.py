@@ -48,6 +48,6 @@ class ISchemaConfigurationPlugin(IConfigurationPlugin):
     """A configuration plugin that provides a data schema."""
 
     schema = zope.schema.Object(
-        title=u"Configuration Schema",
-        description=u"The schema describing the data fields needed.",
+        title="Configuration Schema",
+        description="The schema describing the data fields needed.",
         schema=zope.interface.interfaces.IInterface)

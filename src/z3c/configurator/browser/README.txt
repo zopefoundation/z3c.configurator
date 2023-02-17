@@ -6,8 +6,8 @@ A configuration view is registered to apply named configuration on any
 object.  We defined two example configurators which we now gonna apply
 to the site object.
 
-  >>> from zope.testbrowser.testing import Browser
-  >>> browser = Browser()
+  >>> from zope.testbrowser.wsgi import Browser
+  >>> browser = Browser(wsgi_app=layer.make_wsgi_app())
   >>> browser.addHeader('Authorization','Basic mgr:mgrpw')
   >>> browser.handleErrors = False
 
@@ -28,8 +28,7 @@ First we can choose from the registered named plugins.
 
   >>> plugs = browser.getControl(name="form.pluginNames.from").options
   >>> sorted(plugs)
-  ['z3c.configurator.testing.setdescription',
-   'z3c.configurator.testing.settitle']
+  ['z3c.configurator.testing.setdescription', 'z3c.configurator.testing.settitle']
   >>> browser.open(viewURL + '?form.pluginNames=z3c.configurator.testing.settitle')
 
 We have choosen a plugin, so now we have a form for the arguments needed.
@@ -42,5 +41,3 @@ We have choosen a plugin, so now we have a form for the arguments needed.
 
 XXX form.pluginNames have to be set, but we can't because the widget
 uses javascript.
-
-

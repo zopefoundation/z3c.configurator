@@ -13,8 +13,8 @@
 #############################################################################
 """Configurator Test Setup"""
 
-import re
 import doctest
+import re
 
 from zope.component import testing
 from zope.testing.renormalizing import RENormalizing
